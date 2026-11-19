@@ -1,7 +1,7 @@
-package com.jamie.ft_hangouts.ui
+package com.pbureera.ft_hangouts.ui
 
 import android.os.Bundle
-import com.jamie.ft_hangouts.R
+import com.pbureera.ft_hangouts.R
 
 /** Home screen: list of contacts. */
 class MainActivity : BaseActivity() {

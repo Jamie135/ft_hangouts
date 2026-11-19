@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace = "com.jamie.ft_hangouts"
+    namespace = "com.pbureera.ft_hangouts"
     compileSdk = 37
 
     defaultConfig {
-        applicationId = "com.jamie.ft_hangouts"
+        applicationId = "com.pbureera.ft_hangouts"
         minSdk = 24
         targetSdk = 37
         versionCode = 1

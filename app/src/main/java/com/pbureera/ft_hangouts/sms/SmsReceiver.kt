@@ -1,4 +1,4 @@
-package com.jamie.ft_hangouts.sms
+package com.pbureera.ft_hangouts.sms
 
 import android.content.BroadcastReceiver
 import android.content.Context

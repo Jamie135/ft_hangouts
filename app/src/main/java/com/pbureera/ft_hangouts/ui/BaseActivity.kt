@@ -1,4 +1,4 @@
-package com.jamie.ft_hangouts.ui
+package com.pbureera.ft_hangouts.ui
 
 import androidx.appcompat.app.AppCompatActivity
 
