@@ -27,26 +27,19 @@ class ContactAdapter(private val inflater: LayoutInflater) : BaseAdapter() {
         // Reuse a row that scrolled off screen instead of inflating a new one each time.
         val row = convertView ?: inflater.inflate(R.layout.item_contact, parent, false).also {
             it.tag = RowViews(
-                it.findViewById(R.id.contact_initials),
+                it.findViewById(R.id.contact_avatar),
                 it.findViewById(R.id.contact_name),
                 it.findViewById(R.id.contact_phone),
             )
         }
         val views = row.tag as RowViews
         val contact = contacts[position]
-        views.initials.text = initialsOf(contact)
+        Avatar.bind(views.avatar, contact)
         views.name.text = contact.displayName
         views.phone.text = contact.phone
         return row
     }
 
-    private fun initialsOf(c: Contact): String =
-        listOf(c.firstName, c.lastName)
-            .mapNotNull { it.trim().firstOrNull()?.uppercaseChar() }
-            .joinToString("")
-            // Organisation without a person's name: first letter of the company.
-            .ifEmpty { c.company.trim().take(1).uppercase() }
-
     /** Caches the row's child views so findViewById runs once per row, not per bind. */
-    private class RowViews(val initials: TextView, val name: TextView, val phone: TextView)
+    private class RowViews(val avatar: View, val name: TextView, val phone: TextView)
 }

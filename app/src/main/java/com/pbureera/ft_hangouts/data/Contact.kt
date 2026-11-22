@@ -12,10 +12,23 @@ data class Contact(
     val email: String = "",
     val address: String = "",
     val company: String = "",
-    val photoUri: String? = null,
+    /** File name of the contact's picture in the app's private storage (see PhotoStore), or null. */
+    val photoFile: String? = null,
 ) {
     /** "First Last" for a person, or the company name for an organisation. */
     val displayName: String
         get() = listOf(firstName, lastName).filter { it.isNotBlank() }.joinToString(" ")
             .ifEmpty { company }
+
+    /** "BS" for Bob Smith; the first letter of the company for an organisation. */
+    val initials: String
+        get() = initialsOf(firstName, lastName, company)
+
+    companion object {
+        fun initialsOf(firstName: String, lastName: String, company: String): String =
+            listOf(firstName, lastName)
+                .mapNotNull { it.trim().firstOrNull()?.uppercaseChar() }
+                .joinToString("")
+                .ifEmpty { company.trim().take(1).uppercase() }
+    }
 }

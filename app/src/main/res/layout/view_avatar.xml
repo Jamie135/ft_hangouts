@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Round contact picture, or the initials when there is none. Included with
+  different sizes on the home list, the detail screen and the edit form; filled by Avatar.bind.
+-->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="40dp"
+    android:layout_height="40dp">
+
+    <TextView
+        android:id="@+id/avatar_initials"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/avatar_circle"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/avatar_photo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/avatar_circle"
+        android:contentDescription="@string/contact_photo"
+        android:scaleType="centerCrop"
+        android:visibility="gone" />
+</FrameLayout>

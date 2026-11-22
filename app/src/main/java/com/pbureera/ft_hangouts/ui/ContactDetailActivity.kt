@@ -11,6 +11,7 @@ import android.widget.Toast
 import com.pbureera.ft_hangouts.R
 import com.pbureera.ft_hangouts.data.Contact
 import com.pbureera.ft_hangouts.data.ContactDao
+import com.pbureera.ft_hangouts.data.PhotoStore
 
 /** Shows one contact's details, with Edit and Delete in the menu. */
 class ContactDetailActivity : BaseActivity() {
@@ -50,6 +51,7 @@ class ContactDetailActivity : BaseActivity() {
         }
         contact = c
         title = c.displayName
+        Avatar.bind(findViewById(R.id.detail_avatar), c)
 
         rows.removeAllViews()
         addRow(R.string.label_first_name, c.firstName)
@@ -110,6 +112,7 @@ class ContactDetailActivity : BaseActivity() {
 
     private fun delete() {
         dao.delete(contactId)
+        contact?.photoFile?.let { PhotoStore.delete(this, it) }
         Toast.makeText(this, R.string.contact_deleted, Toast.LENGTH_SHORT).show()
         finish()
     }

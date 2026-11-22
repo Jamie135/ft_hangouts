@@ -59,7 +59,7 @@ class ContactDao(private val db: DbHelper) {
         put(C_EMAIL, email.trim())
         put(C_ADDRESS, address.trim())
         put(C_COMPANY, company.trim())
-        put(C_PHOTO_URI, photoUri)
+        put(C_PHOTO_URI, photoFile)
     }
 
     private fun Cursor.toContact() = Contact(
@@ -70,6 +70,6 @@ class ContactDao(private val db: DbHelper) {
         email = getString(getColumnIndexOrThrow(C_EMAIL)),
         address = getString(getColumnIndexOrThrow(C_ADDRESS)),
         company = getString(getColumnIndexOrThrow(C_COMPANY)),
-        photoUri = getColumnIndexOrThrow(C_PHOTO_URI).let { if (isNull(it)) null else getString(it) },
+        photoFile = getColumnIndexOrThrow(C_PHOTO_URI).let { if (isNull(it)) null else getString(it) },
     )
 }

@@ -3,12 +3,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- One item_detail_row per non-empty field, added from code. -->
     <LinearLayout
-        android:id="@+id/detail_rows"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingHorizontal="16dp"
-        android:paddingBottom="16dp" />
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/detail_avatar"
+            layout="@layout/view_avatar"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="24dp" />
+
+        <!-- One item_detail_row per non-empty field, added from code. -->
+        <LinearLayout
+            android:id="@+id/detail_rows"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp"
+            android:paddingBottom="16dp" />
+    </LinearLayout>
 </ScrollView>

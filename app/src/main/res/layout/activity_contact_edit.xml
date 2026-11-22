@@ -11,7 +11,36 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <TextView style="@style/FieldLabel" android:layout_marginTop="0dp"
+        <!-- Tapping the picture or "Add photo" opens the system picker. -->
+        <include
+            android:id="@+id/edit_avatar"
+            layout="@layout/view_avatar"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:layout_gravity="center_horizontal" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/button_photo"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/action_add_photo" />
+
+            <Button
+                android:id="@+id/button_remove_photo"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/action_remove_photo" />
+        </LinearLayout>
+
+        <TextView style="@style/FieldLabel"
             android:labelFor="@+id/edit_first_name" android:text="@string/label_first_name" />
         <EditText android:id="@+id/edit_first_name" style="@style/FieldInput"
             android:autofillHints="givenName" android:inputType="textPersonName|textCapWords" />

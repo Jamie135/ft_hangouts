@@ -64,4 +64,11 @@
     <!-- Each language is written in itself, so it is recognisable whatever the current language. -->
     <string name="language_english" translatable="false">English</string>
     <string name="language_french" translatable="false">Français</string>
+
+    <!-- Profile picture -->
+    <string name="contact_photo">Contact picture</string>
+    <string name="action_add_photo">Add photo</string>
+    <string name="action_change_photo">Change photo</string>
+    <string name="action_remove_photo">Remove photo</string>
+    <string name="error_photo">Could not load this picture</string>
 </resources>

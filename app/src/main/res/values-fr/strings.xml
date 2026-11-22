@@ -64,4 +64,11 @@
     <!-- Language menu -->
     <string name="action_language">Langue</string>
     <string name="language_system">Langue du système</string>
+
+    <!-- Photo de profil -->
+    <string name="contact_photo">Photo du contact</string>
+    <string name="action_add_photo">Ajouter une photo</string>
+    <string name="action_change_photo">Changer la photo</string>
+    <string name="action_remove_photo">Supprimer la photo</string>
+    <string name="error_photo">Impossible de charger cette image</string>
 </resources>
