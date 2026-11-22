@@ -22,12 +22,12 @@ class DbHelper private constructor(context: Context) :
             """
             CREATE TABLE $T_CONTACTS (
                 $C_ID         INTEGER PRIMARY KEY AUTOINCREMENT,
-                $C_FIRST_NAME TEXT NOT NULL,
+                $C_FIRST_NAME TEXT NOT NULL DEFAULT '',
                 $C_LAST_NAME  TEXT NOT NULL DEFAULT '',
                 $C_PHONE      TEXT NOT NULL,
                 $C_EMAIL      TEXT NOT NULL DEFAULT '',
                 $C_ADDRESS    TEXT NOT NULL DEFAULT '',
-                $C_BIRTHDAY   TEXT NOT NULL DEFAULT '',
+                $C_COMPANY    TEXT NOT NULL DEFAULT '',
                 $C_PHOTO_URI  TEXT
             )
             """.trimIndent()
@@ -56,7 +56,8 @@ class DbHelper private constructor(context: Context) :
 
     companion object {
         const val DB_NAME = "ft_hangouts.db"
-        const val DB_VERSION = 1
+        // 2: "birthday" column replaced by "company".
+        const val DB_VERSION = 2
 
         const val T_CONTACTS = "contacts"
         const val C_ID = "id"
@@ -65,7 +66,7 @@ class DbHelper private constructor(context: Context) :
         const val C_PHONE = "phone"
         const val C_EMAIL = "email"
         const val C_ADDRESS = "address"
-        const val C_BIRTHDAY = "birthday"
+        const val C_COMPANY = "company"
         const val C_PHOTO_URI = "photo_uri"
 
         const val T_MESSAGES = "messages"

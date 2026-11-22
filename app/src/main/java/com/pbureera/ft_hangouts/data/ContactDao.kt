@@ -5,7 +5,7 @@ import android.content.Context
 import android.database.Cursor
 import android.telephony.PhoneNumberUtils
 import com.pbureera.ft_hangouts.data.DbHelper.Companion.C_ADDRESS
-import com.pbureera.ft_hangouts.data.DbHelper.Companion.C_BIRTHDAY
+import com.pbureera.ft_hangouts.data.DbHelper.Companion.C_COMPANY
 import com.pbureera.ft_hangouts.data.DbHelper.Companion.C_EMAIL
 import com.pbureera.ft_hangouts.data.DbHelper.Companion.C_FIRST_NAME
 import com.pbureera.ft_hangouts.data.DbHelper.Companion.C_ID
@@ -36,7 +36,8 @@ class ContactDao(private val db: DbHelper) {
     fun getAll(): List<Contact> =
         db.readableDatabase.query(
             T_CONTACTS, null, null, null, null, null,
-            "$C_FIRST_NAME COLLATE NOCASE, $C_LAST_NAME COLLATE NOCASE"
+            // Sort by the name shown in the list: the first name, or the company when there is none.
+            "COALESCE(NULLIF($C_FIRST_NAME, ''), $C_COMPANY) COLLATE NOCASE, $C_LAST_NAME COLLATE NOCASE"
         ).use { c -> buildList { while (c.moveToNext()) add(c.toContact()) } }
 
     fun getById(id: Long): Contact? =
@@ -57,7 +58,7 @@ class ContactDao(private val db: DbHelper) {
         put(C_PHONE, phone.trim())
         put(C_EMAIL, email.trim())
         put(C_ADDRESS, address.trim())
-        put(C_BIRTHDAY, birthday.trim())
+        put(C_COMPANY, company.trim())
         put(C_PHOTO_URI, photoUri)
     }
 
@@ -68,7 +69,7 @@ class ContactDao(private val db: DbHelper) {
         phone = getString(getColumnIndexOrThrow(C_PHONE)),
         email = getString(getColumnIndexOrThrow(C_EMAIL)),
         address = getString(getColumnIndexOrThrow(C_ADDRESS)),
-        birthday = getString(getColumnIndexOrThrow(C_BIRTHDAY)),
+        company = getString(getColumnIndexOrThrow(C_COMPANY)),
         photoUri = getColumnIndexOrThrow(C_PHOTO_URI).let { if (isNull(it)) null else getString(it) },
     )
 }

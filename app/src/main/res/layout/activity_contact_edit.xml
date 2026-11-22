@@ -22,6 +22,11 @@
             android:autofillHints="familyName" android:inputType="textPersonName|textCapWords" />
 
         <TextView style="@style/FieldLabel"
+            android:labelFor="@+id/edit_company" android:text="@string/label_company" />
+        <EditText android:id="@+id/edit_company" style="@style/FieldInput"
+            android:autofillHints="organization" android:inputType="textCapWords" />
+
+        <TextView style="@style/FieldLabel"
             android:labelFor="@+id/edit_phone" android:text="@string/label_phone" />
         <EditText android:id="@+id/edit_phone" style="@style/FieldInput"
             android:autofillHints="phone" android:inputType="phone" />
@@ -37,11 +42,6 @@
             android:autofillHints="postalAddress"
             android:inputType="textPostalAddress|textMultiLine|textCapWords" />
 
-        <TextView style="@style/FieldLabel"
-            android:labelFor="@+id/edit_birthday" android:text="@string/label_birthday" />
-        <EditText android:id="@+id/edit_birthday" style="@style/FieldInput"
-            android:hint="@string/hint_birthday" android:importantForAutofill="no"
-            android:inputType="date" />
 
         <Button
             android:id="@+id/button_save"

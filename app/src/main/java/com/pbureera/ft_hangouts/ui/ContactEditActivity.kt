@@ -22,7 +22,7 @@ class ContactEditActivity : BaseActivity() {
     private lateinit var phone: EditText
     private lateinit var email: EditText
     private lateinit var address: EditText
-    private lateinit var birthday: EditText
+    private lateinit var company: EditText
 
     /** The contact being edited, or null when creating a new one. */
     private var original: Contact? = null
@@ -38,7 +38,7 @@ class ContactEditActivity : BaseActivity() {
         phone = findViewById(R.id.edit_phone)
         email = findViewById(R.id.edit_email)
         address = findViewById(R.id.edit_address)
-        birthday = findViewById(R.id.edit_birthday)
+        company = findViewById(R.id.edit_company)
 
         val contactId = intent.getLongExtra(EXTRA_CONTACT_ID, 0L)
         if (contactId != 0L) {
@@ -60,7 +60,7 @@ class ContactEditActivity : BaseActivity() {
         phone.setText(c.phone)
         email.setText(c.email)
         address.setText(c.address)
-        birthday.setText(c.birthday)
+        company.setText(c.company)
     }
 
     private fun save() {
@@ -73,7 +73,7 @@ class ContactEditActivity : BaseActivity() {
             phone = phone.text.toString().trim(),
             email = email.text.toString().trim(),
             address = address.text.toString().trim(),
-            birthday = birthday.text.toString().trim(),
+            company = company.text.toString().trim(),
             photoUri = original?.photoUri,
         )
 
@@ -96,7 +96,11 @@ class ContactEditActivity : BaseActivity() {
     private fun validate(): Boolean {
         val errors = mutableListOf<Pair<EditText, Int>>()
 
-        if (firstName.text.isBlank()) errors += firstName to R.string.error_required
+        // A person needs a first name, an organisation a company name: at least one of them.
+        if (firstName.text.isBlank() && company.text.isBlank()) {
+            errors += firstName to R.string.error_name_or_company
+            errors += company to R.string.error_name_or_company
+        }
 
         val phoneText = phone.text.toString().trim()
         when {

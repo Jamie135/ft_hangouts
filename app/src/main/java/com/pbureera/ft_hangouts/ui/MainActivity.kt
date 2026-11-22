@@ -14,7 +14,10 @@ class MainActivity : BaseActivity() {
 
     private lateinit var dao: ContactDao
     private lateinit var adapter: ContactAdapter
-    private var colorDialog: AlertDialog? = null
+
+    /** The settings dialog currently shown (header colour or language), if any. */
+    private var dialog: AlertDialog? = null
+    private var dialogKind: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,8 +36,11 @@ class MainActivity : BaseActivity() {
             )
         }
 
-        // Dialogs are destroyed on rotation: show it again if it was open.
-        if (savedInstanceState?.getBoolean(STATE_COLOR_DIALOG) == true) showHeaderColorDialog()
+        // Dialogs are destroyed on rotation: show the one that was open again.
+        when (savedInstanceState?.getString(STATE_OPEN_DIALOG)) {
+            DIALOG_COLOR -> showHeaderColorDialog()
+            DIALOG_LANGUAGE -> showLanguageDialog()
+        }
     }
 
     /**
@@ -60,6 +66,10 @@ class MainActivity : BaseActivity() {
             showHeaderColorDialog()
             true
         }
+        R.id.action_language -> {
+            showLanguageDialog()
+            true
+        }
         else -> super.onOptionsItemSelected(item)
     }
 
@@ -68,30 +78,74 @@ class MainActivity : BaseActivity() {
         val colors = HeaderColor.choices(this)
         val current = colors.indexOf(HeaderColor.get(this) ?: colors[0])
 
-        colorDialog = AlertDialog.Builder(this)
-            .setTitle(R.string.action_header_color)
-            .setSingleChoiceItems(R.array.header_color_names, current) { dialog, which ->
-                HeaderColor.set(this, colors[which])
-                applyHeaderColor()
-                dialog.dismiss()
+        showChoiceDialog(
+            DIALOG_COLOR, R.string.action_header_color,
+            resources.getStringArray(R.array.header_color_names), current,
+        ) { which ->
+            HeaderColor.set(this, colors[which])
+            applyHeaderColor()
+        }
+    }
+
+    /** System default / English / Français, with the current choice ticked. */
+    private fun showLanguageDialog() {
+        val languages = AppLanguage.entries
+        val names = languages.map {
+            getString(
+                when (it) {
+                    AppLanguage.SYSTEM -> R.string.language_system
+                    AppLanguage.ENGLISH -> R.string.language_english
+                    AppLanguage.FRENCH -> R.string.language_french
+                }
+            )
+        }.toTypedArray()
+
+        showChoiceDialog(
+            DIALOG_LANGUAGE, R.string.action_language,
+            names, languages.indexOf(AppLanguage.current()),
+        ) { which ->
+            // Android recreates every open screen in the new language.
+            if (languages[which] != AppLanguage.current()) AppLanguage.apply(languages[which])
+        }
+    }
+
+    /** A single-choice dialog that closes and calls [onPick] as soon as an item is tapped. */
+    private fun showChoiceDialog(
+        kind: String,
+        titleRes: Int,
+        items: Array<String>,
+        checked: Int,
+        onPick: (Int) -> Unit,
+    ) {
+        dialogKind = kind
+        dialog = AlertDialog.Builder(this)
+            .setTitle(titleRes)
+            .setSingleChoiceItems(items, checked) { d, which ->
+                d.dismiss()
+                onPick(which)
             }
             .setNegativeButton(R.string.action_cancel, null)
-            .setOnDismissListener { colorDialog = null }
+            .setOnDismissListener {
+                dialog = null
+                dialogKind = null
+            }
             .show()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putBoolean(STATE_COLOR_DIALOG, colorDialog?.isShowing == true)
+        if (dialog?.isShowing == true) outState.putString(STATE_OPEN_DIALOG, dialogKind)
     }
 
     override fun onDestroy() {
-        colorDialog?.setOnDismissListener(null)
-        colorDialog?.dismiss()
+        dialog?.setOnDismissListener(null)
+        dialog?.dismiss()
         super.onDestroy()
     }
 
     private companion object {
-        const val STATE_COLOR_DIALOG = "color_dialog_open"
+        const val STATE_OPEN_DIALOG = "open_dialog"
+        const val DIALOG_COLOR = "color"
+        const val DIALOG_LANGUAGE = "language"
     }
 }

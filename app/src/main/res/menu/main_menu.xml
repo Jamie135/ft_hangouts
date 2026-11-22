@@ -8,9 +8,14 @@
         android:title="@string/action_add_contact"
         app:showAsAction="ifRoom" />
 
-    <!-- No icon and showAsAction="never": goes in the ⋮ overflow menu. -->
+    <!-- No icon and showAsAction="never": these go in the ⋮ overflow menu. -->
     <item
         android:id="@+id/action_header_color"
         android:title="@string/action_header_color"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_language"
+        android:title="@string/action_language"
         app:showAsAction="never" />
 </menu>

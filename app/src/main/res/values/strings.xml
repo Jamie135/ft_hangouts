@@ -1,5 +1,6 @@
 <resources>
-    <string name="app_name">ft_hangouts</string>
+    <!-- Same name in every language. -->
+    <string name="app_name" translatable="false">ft_hangouts</string>
     <string name="no_contacts">No contacts yet</string>
 
     <!-- Screen titles -->
@@ -12,8 +13,7 @@
     <string name="label_phone">Phone</string>
     <string name="label_email">Email</string>
     <string name="label_address">Address</string>
-    <string name="label_birthday">Birthday</string>
-    <string name="hint_birthday">e.g. 21/04/1998</string>
+    <string name="label_company">Company</string>
 
     <!-- Actions -->
     <string name="action_add_contact">Add contact</string>
@@ -24,6 +24,7 @@
 
     <!-- Validation and feedback -->
     <string name="error_required">This field is required</string>
+    <string name="error_name_or_company">Enter a first name or a company</string>
     <string name="error_invalid_phone">Invalid phone number</string>
     <string name="error_invalid_email">Invalid email address</string>
     <string name="error_save_failed">Could not save the contact</string>
@@ -43,4 +44,11 @@
         <item>Teal</item>
         <item>Grey</item>
     </string-array>
+
+    <!-- Language menu -->
+    <string name="action_language">Language</string>
+    <string name="language_system">System default</string>
+    <!-- Each language is written in itself, so it is recognisable whatever the current language. -->
+    <string name="language_english" translatable="false">English</string>
+    <string name="language_french" translatable="false">Français</string>
 </resources>

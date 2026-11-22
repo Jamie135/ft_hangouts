@@ -44,6 +44,8 @@ class ContactAdapter(private val inflater: LayoutInflater) : BaseAdapter() {
         listOf(c.firstName, c.lastName)
             .mapNotNull { it.trim().firstOrNull()?.uppercaseChar() }
             .joinToString("")
+            // Organisation without a person's name: first letter of the company.
+            .ifEmpty { c.company.trim().take(1).uppercase() }
 
     /** Caches the row's child views so findViewById runs once per row, not per bind. */
     private class RowViews(val initials: TextView, val name: TextView, val phone: TextView)

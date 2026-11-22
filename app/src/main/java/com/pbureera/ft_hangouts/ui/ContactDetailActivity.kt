@@ -54,10 +54,10 @@ class ContactDetailActivity : BaseActivity() {
         rows.removeAllViews()
         addRow(R.string.label_first_name, c.firstName)
         addRow(R.string.label_last_name, c.lastName)
+        addRow(R.string.label_company, c.company)
         addRow(R.string.label_phone, c.phone)
         addRow(R.string.label_email, c.email)
         addRow(R.string.label_address, c.address)
-        addRow(R.string.label_birthday, c.birthday)
         return true
     }
 
