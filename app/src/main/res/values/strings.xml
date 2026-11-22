@@ -47,6 +47,8 @@
 
     <!-- Conversation -->
     <string name="action_message">Message</string>
+    <string name="action_call">Call</string>
+    <string name="error_no_phone_app">No app can make phone calls on this device</string>
     <string name="action_send">Send</string>
     <string name="hint_message">Type a message</string>
     <string name="no_messages">No messages yet</string>

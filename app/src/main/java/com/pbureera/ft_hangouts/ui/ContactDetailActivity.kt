@@ -1,7 +1,11 @@
 package com.pbureera.ft_hangouts.ui
 
+import android.Manifest
 import android.app.AlertDialog
+import android.content.ActivityNotFoundException
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -78,6 +82,10 @@ class ContactDetailActivity : BaseActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
+        R.id.action_call -> {
+            call()
+            true
+        }
         R.id.action_message -> {
             startActivity(
                 Intent(this, ConversationActivity::class.java)
@@ -97,6 +105,42 @@ class ContactDetailActivity : BaseActivity() {
             true
         }
         else -> super.onOptionsItemSelected(item)
+    }
+
+    /** Calls the contact, asking for the CALL_PHONE permission the first time. */
+    private fun call() {
+        if (checkSelfPermission(Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
+            startCall(Intent.ACTION_CALL)
+        } else {
+            requestPermissions(arrayOf(Manifest.permission.CALL_PHONE), REQUEST_CALL_PHONE)
+        }
+    }
+
+    @Deprecated("Framework callback; the replacement needs the AndroidX Activity Result API.")
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray,
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode != REQUEST_CALL_PHONE) return
+        val granted = grantResults.firstOrNull() == PackageManager.PERMISSION_GRANTED
+        // Refused: open the phone app with the number typed in instead, which needs no
+        // permission; the user just presses the call button there.
+        startCall(if (granted) Intent.ACTION_CALL else Intent.ACTION_DIAL)
+    }
+
+    /** ACTION_CALL calls straight away; ACTION_DIAL only fills in the number in the phone app. */
+    private fun startCall(action: String) {
+        val phone = contact?.phone ?: return
+        try {
+            startActivity(Intent(action, Uri.fromParts("tel", phone, null)))
+        } catch (e: ActivityNotFoundException) {
+            // A tablet without a phone app, for example.
+            Toast.makeText(this, R.string.error_no_phone_app, Toast.LENGTH_LONG).show()
+        } catch (e: SecurityException) {
+            Toast.makeText(this, R.string.error_no_phone_app, Toast.LENGTH_LONG).show()
+        }
     }
 
     private fun confirmDelete() {
@@ -131,5 +175,6 @@ class ContactDetailActivity : BaseActivity() {
 
     private companion object {
         const val STATE_DELETE_DIALOG = "delete_dialog_open"
+        const val REQUEST_CALL_PHONE = 1
     }
 }

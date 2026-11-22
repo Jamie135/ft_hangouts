@@ -6,6 +6,8 @@
     <!-- Receiving SMS (SmsReceiver). Also requested at runtime, when the app starts. -->
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <!-- SMS needs a phone radio, but don't hide the app from devices without one. -->
+    <!-- Bonus: call a contact directly from the app. -->
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-feature android:name="android.hardware.telephony" android:required="false" />
 
     <application

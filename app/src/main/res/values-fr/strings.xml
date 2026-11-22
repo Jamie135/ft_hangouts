@@ -50,6 +50,8 @@
 
     <!-- Conversation -->
     <string name="action_message">Message</string>
+    <string name="action_call">Appeler</string>
+    <string name="error_no_phone_app">Aucune application ne peut passer d\'appel sur cet appareil</string>
     <string name="action_send">Envoyer</string>
     <string name="hint_message">Écrire un message</string>
     <string name="no_messages">Aucun message pour le moment</string>
