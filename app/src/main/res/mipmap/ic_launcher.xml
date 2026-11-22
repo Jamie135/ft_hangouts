@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 42 logo, converted from the official SVG (Wikimedia Commons: 42_Logo.svg). -->
+<!-- Launcher icon for Android 7 (API 24-25), which has no adaptive icons. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+    <path android:fillColor="@color/ic_launcher_background"
+        android:pathData="M24,2a22,22 0 1,0 0,44a22,22 0 1,0 0,-44z" />
+    <path android:fillColor="#FFFFFFFF" android:pathData="M9.000,28.994 L20.052,28.994 L20.052,34.532 L25.567,34.532 L25.567,24.524 L14.535,24.524 L25.567,13.468 L20.052,13.468 L9.000,24.524 Z" />
+    <path android:fillColor="#FFFFFFFF" android:pathData="M27.948,19.003 L33.465,13.468 L27.948,13.468 Z" />
+    <path android:fillColor="#FFFFFFFF" android:pathData="M33.465,19.003 L27.948,24.524 L27.948,30.042 L33.465,30.042 L33.465,24.524 L39.000,19.003 L39.000,13.468 L33.465,13.468 Z" />
+    <path android:fillColor="#FFFFFFFF" android:pathData="M39.000,24.524 L33.465,30.042 L39.000,30.042 Z" />
+</vector>

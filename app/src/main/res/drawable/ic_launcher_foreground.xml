@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 42 logo, converted from the official SVG (Wikimedia Commons: 42_Logo.svg). -->
+<!-- Adaptive icon foreground: 108dp canvas, logo kept inside the 66dp safe zone. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path android:fillColor="#FFFFFFFF" android:pathData="M28.000,62.656 L47.158,62.656 L47.158,72.255 L56.716,72.255 L56.716,54.908 L37.593,54.908 L56.716,35.745 L47.158,35.745 L28.000,54.908 Z" />
+    <path android:fillColor="#FFFFFFFF" android:pathData="M60.842,45.338 L70.407,35.745 L60.842,35.745 Z" />
+    <path android:fillColor="#FFFFFFFF" android:pathData="M70.407,45.338 L60.842,54.908 L60.842,64.473 L70.407,64.473 L70.407,54.908 L80.000,45.338 L80.000,35.745 L70.407,35.745 Z" />
+    <path android:fillColor="#FFFFFFFF" android:pathData="M80.000,54.908 L70.407,64.473 L80.000,64.473 Z" />
+</vector>

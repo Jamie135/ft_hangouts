@@ -4,6 +4,8 @@
     <color name="primary_dark">#FF1565C0</color>
     <color name="accent">#FF00ACC1</color>
     <color name="white">#FFFFFFFF</color>
+    <!-- Launcher icon: white 42 logo on black. -->
+    <color name="ic_launcher_background">#FF000000</color>
 
     <!-- Choices in the "Header colour" menu. Same order as header_color_names. -->
     <color name="header_blue">#FF1E88E5</color>
