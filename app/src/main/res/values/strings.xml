@@ -45,6 +45,14 @@
         <item>Grey</item>
     </string-array>
 
+    <!-- Conversation -->
+    <string name="action_message">Message</string>
+    <string name="action_send">Send</string>
+    <string name="hint_message">Type a message</string>
+    <string name="no_messages">No messages yet</string>
+    <string name="error_sms_permission">Permission to send SMS was denied</string>
+    <string name="error_sms_failed">The message could not be sent</string>
+
     <!-- Toast shown when the app comes back from the background -->
     <string name="last_background">App last sent to background: %1$s</string>
 

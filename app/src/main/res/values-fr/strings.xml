@@ -48,6 +48,14 @@
         <item>Gris</item>
     </string-array>
 
+    <!-- Conversation -->
+    <string name="action_message">Message</string>
+    <string name="action_send">Envoyer</string>
+    <string name="hint_message">Écrire un message</string>
+    <string name="no_messages">Aucun message pour le moment</string>
+    <string name="error_sms_permission">L\'autorisation d\'envoyer des SMS a été refusée</string>
+    <string name="error_sms_failed">Le message n\'a pas pu être envoyé</string>
+
     <!-- Toast shown when the app comes back from the background -->
     <string name="last_background">Dernière mise en arrière-plan : %1$s</string>
 

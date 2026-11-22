@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <!-- Sending SMS. A "dangerous" permission: also requested at runtime (ConversationActivity). -->
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <!-- SMS needs a phone radio, but don't hide the app from devices without one. -->
+    <uses-feature android:name="android.hardware.telephony" android:required="false" />
+
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -23,6 +28,9 @@
         <activity android:name=".ui.ContactEditActivity" android:exported="false" />
         <activity android:name=".ui.ContactDetailActivity" android:exported="false" />
         <activity android:name=".ui.ConversationActivity" android:exported="false" />
+
+        <!-- Told by Android whether each SMS we sent was accepted by the network. -->
+        <receiver android:name=".sms.SmsSentReceiver" android:exported="false" />
 
         <!--
           Lets AppCompat remember the language chosen in the app's Language menu on

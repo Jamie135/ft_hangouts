@@ -76,6 +76,13 @@ class ContactDetailActivity : BaseActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
+        R.id.action_message -> {
+            startActivity(
+                Intent(this, ConversationActivity::class.java)
+                    .putExtra(EXTRA_CONTACT_ID, contactId)
+            )
+            true
+        }
         R.id.action_edit -> {
             startActivity(
                 Intent(this, ContactEditActivity::class.java)
