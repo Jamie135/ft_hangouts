@@ -1,4 +1,46 @@
 <resources>
     <string name="app_name">ft_hangouts</string>
     <string name="no_contacts">No contacts yet</string>
+
+    <!-- Screen titles -->
+    <string name="title_new_contact">New contact</string>
+    <string name="title_edit_contact">Edit contact</string>
+
+    <!-- Contact fields -->
+    <string name="label_first_name">First name</string>
+    <string name="label_last_name">Last name</string>
+    <string name="label_phone">Phone</string>
+    <string name="label_email">Email</string>
+    <string name="label_address">Address</string>
+    <string name="label_birthday">Birthday</string>
+    <string name="hint_birthday">e.g. 21/04/1998</string>
+
+    <!-- Actions -->
+    <string name="action_add_contact">Add contact</string>
+    <string name="action_edit">Edit</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_save">Save</string>
+    <string name="action_cancel">Cancel</string>
+
+    <!-- Validation and feedback -->
+    <string name="error_required">This field is required</string>
+    <string name="error_invalid_phone">Invalid phone number</string>
+    <string name="error_invalid_email">Invalid email address</string>
+    <string name="error_save_failed">Could not save the contact</string>
+    <string name="contact_saved">Contact saved</string>
+    <string name="contact_deleted">Contact deleted</string>
+    <string name="delete_contact_title">Delete contact?</string>
+    <string name="delete_contact_message">%1$s and your whole conversation with them will be deleted.</string>
+
+    <!-- Header colour menu -->
+    <string name="action_header_color">Header colour</string>
+    <string-array name="header_color_names">
+        <item>Blue</item>
+        <item>Red</item>
+        <item>Green</item>
+        <item>Purple</item>
+        <item>Orange</item>
+        <item>Teal</item>
+        <item>Grey</item>
+    </string-array>
 </resources>

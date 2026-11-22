@@ -4,4 +4,23 @@
     <color name="primary_dark">#FF1565C0</color>
     <color name="accent">#FF00ACC1</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Choices in the "Header colour" menu. Same order as header_color_names. -->
+    <color name="header_blue">#FF1E88E5</color>
+    <color name="header_red">#FFE53935</color>
+    <color name="header_green">#FF43A047</color>
+    <color name="header_purple">#FF8E24AA</color>
+    <color name="header_orange">#FFF57C00</color>
+    <color name="header_teal">#FF00897B</color>
+    <color name="header_grey">#FF455A64</color>
+
+    <array name="header_colors">
+        <item>@color/header_blue</item>
+        <item>@color/header_red</item>
+        <item>@color/header_green</item>
+        <item>@color/header_purple</item>
+        <item>@color/header_orange</item>
+        <item>@color/header_teal</item>
+        <item>@color/header_grey</item>
+    </array>
 </resources>

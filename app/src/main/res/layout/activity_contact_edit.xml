@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ScrollView so the form still fits in landscape. -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView style="@style/FieldLabel" android:layout_marginTop="0dp"
+            android:labelFor="@+id/edit_first_name" android:text="@string/label_first_name" />
+        <EditText android:id="@+id/edit_first_name" style="@style/FieldInput"
+            android:autofillHints="givenName" android:inputType="textPersonName|textCapWords" />
+
+        <TextView style="@style/FieldLabel"
+            android:labelFor="@+id/edit_last_name" android:text="@string/label_last_name" />
+        <EditText android:id="@+id/edit_last_name" style="@style/FieldInput"
+            android:autofillHints="familyName" android:inputType="textPersonName|textCapWords" />
+
+        <TextView style="@style/FieldLabel"
+            android:labelFor="@+id/edit_phone" android:text="@string/label_phone" />
+        <EditText android:id="@+id/edit_phone" style="@style/FieldInput"
+            android:autofillHints="phone" android:inputType="phone" />
+
+        <TextView style="@style/FieldLabel"
+            android:labelFor="@+id/edit_email" android:text="@string/label_email" />
+        <EditText android:id="@+id/edit_email" style="@style/FieldInput"
+            android:autofillHints="emailAddress" android:inputType="textEmailAddress" />
+
+        <TextView style="@style/FieldLabel"
+            android:labelFor="@+id/edit_address" android:text="@string/label_address" />
+        <EditText android:id="@+id/edit_address" style="@style/FieldInput"
+            android:autofillHints="postalAddress"
+            android:inputType="textPostalAddress|textMultiLine|textCapWords" />
+
+        <TextView style="@style/FieldLabel"
+            android:labelFor="@+id/edit_birthday" android:text="@string/label_birthday" />
+        <EditText android:id="@+id/edit_birthday" style="@style/FieldInput"
+            android:hint="@string/hint_birthday" android:importantForAutofill="no"
+            android:inputType="date" />
+
+        <Button
+            android:id="@+id/button_save"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/action_save" />
+    </LinearLayout>
+</ScrollView>
