@@ -48,6 +48,9 @@
         <item>Gris</item>
     </string-array>
 
+    <!-- Toast shown when the app comes back from the background -->
+    <string name="last_background">Dernière mise en arrière-plan : %1$s</string>
+
     <!-- Language menu -->
     <string name="action_language">Langue</string>
     <string name="language_system">Langue du système</string>

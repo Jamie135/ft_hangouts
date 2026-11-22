@@ -45,6 +45,9 @@
         <item>Grey</item>
     </string-array>
 
+    <!-- Toast shown when the app comes back from the background -->
+    <string name="last_background">App last sent to background: %1$s</string>
+
     <!-- Language menu -->
     <string name="action_language">Language</string>
     <string name="language_system">System default</string>
