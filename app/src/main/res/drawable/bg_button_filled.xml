@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Main button (Save): pill shape filled with the theme colour. -->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="#40FFFFFF">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="?android:attr/colorPrimary" />
+            <corners android:radius="24dp" />
+        </shape>
+    </item>
+</ripple>

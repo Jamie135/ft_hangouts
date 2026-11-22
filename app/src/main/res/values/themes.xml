@@ -1,10 +1,54 @@
 <resources>
-    <!-- Plain Android Material theme (built into the system, no library needed). -->
+    <!-- Android's built-in Material theme (no library needed). -->
     <style name="Theme.FtHangouts" parent="android:Theme.Material.Light.DarkActionBar">
-        <item name="android:colorPrimary">@color/primary</item>
-        <item name="android:colorPrimaryDark">@color/primary_dark</item>
-        <item name="android:colorAccent">@color/accent</item>
-        <!-- Dark status bar icons, readable on the light background. -->
-        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:colorPrimary">@color/header_blue</item>
+        <item name="android:colorPrimaryDark">@color/header_blue</item>
+        <item name="android:colorAccent">@color/header_blue</item>
+        <item name="android:colorBackground">@color/background</item>
+        <item name="android:windowBackground">@color/background</item>
+        <!-- The header colour goes behind the status bar: keep its icons white. -->
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+
+    <!--
+      Theme colour chosen in the "Header colour" menu. BaseActivity applies one of these on
+      top of the theme, so the header, buttons, avatars, sent bubbles, field labels and text
+      cursors all use the same colour. Same order as R.array.header_colors.
+    -->
+    <style name="HeaderColor" />
+    <style name="HeaderColor.Blue">
+        <item name="android:colorPrimary">@color/header_blue</item>
+        <item name="android:colorPrimaryDark">@color/header_blue</item>
+        <item name="android:colorAccent">@color/header_blue</item>
+    </style>
+    <style name="HeaderColor.Red">
+        <item name="android:colorPrimary">@color/header_red</item>
+        <item name="android:colorPrimaryDark">@color/header_red</item>
+        <item name="android:colorAccent">@color/header_red</item>
+    </style>
+    <style name="HeaderColor.Green">
+        <item name="android:colorPrimary">@color/header_green</item>
+        <item name="android:colorPrimaryDark">@color/header_green</item>
+        <item name="android:colorAccent">@color/header_green</item>
+    </style>
+    <style name="HeaderColor.Purple">
+        <item name="android:colorPrimary">@color/header_purple</item>
+        <item name="android:colorPrimaryDark">@color/header_purple</item>
+        <item name="android:colorAccent">@color/header_purple</item>
+    </style>
+    <style name="HeaderColor.Orange">
+        <item name="android:colorPrimary">@color/header_orange</item>
+        <item name="android:colorPrimaryDark">@color/header_orange</item>
+        <item name="android:colorAccent">@color/header_orange</item>
+    </style>
+    <style name="HeaderColor.Teal">
+        <item name="android:colorPrimary">@color/header_teal</item>
+        <item name="android:colorPrimaryDark">@color/header_teal</item>
+        <item name="android:colorAccent">@color/header_teal</item>
+    </style>
+    <style name="HeaderColor.Grey">
+        <item name="android:colorPrimary">@color/header_grey</item>
+        <item name="android:colorPrimaryDark">@color/header_grey</item>
+        <item name="android:colorAccent">@color/header_grey</item>
     </style>
 </resources>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Dark mode versions of the surface colours. -->
+<resources>
+    <color name="background">#FF121316</color>
+    <color name="surface">#FF1E1F24</color>
+    <color name="surface_variant">#FF2C2D33</color>
+    <color name="bubble_received">#FF2C2D33</color>
+    <color name="bubble_received_text">#DEFFFFFF</color>
+    <color name="bubble_received_time">#8AFFFFFF</color>
+</resources>

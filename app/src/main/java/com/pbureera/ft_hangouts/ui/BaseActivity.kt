@@ -2,21 +2,29 @@ package com.pbureera.ft_hangouts.ui
 
 import android.app.Activity
 import android.content.Context
-import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.WindowInsets
 
 /**
- * Parent of every screen. Shared behaviour (header colour, "last paused" toast)
- * will live here so each activity gets it for free.
+ * Parent of every screen: theme colour, language, layout below the header and the back arrow.
  */
 abstract class BaseActivity : Activity() {
 
     /** Before Android 13, the language picked in the app's menu is applied here (see [AppLanguage]). */
     override fun attachBaseContext(newBase: Context) {
         super.attachBaseContext(AppLanguage.wrap(newBase))
+    }
+
+    /**
+     * The colour chosen in the "Header colour" menu becomes the theme colour of every screen:
+     * header, buttons, avatars, sent bubbles, labels... It must be applied before any view
+     * is created, so before super.onCreate().
+     */
+    override fun onCreate(savedInstanceState: Bundle?) {
+        theme.applyStyle(HeaderColor.overlay(this), true)
+        super.onCreate(savedInstanceState)
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
@@ -58,18 +66,6 @@ abstract class BaseActivity : Activity() {
         // The action bar's height is only known after layout (and changes on rotation).
         actionBar?.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ -> applyPadding() }
         content.requestApplyInsets()
-    }
-
-    /** Every screen re-applies the colour when it comes to the front, so a change shows everywhere. */
-    override fun onResume() {
-        super.onResume()
-        applyHeaderColor()
-    }
-
-    /** Paints the action bar with the colour chosen in the "Header colour" menu, if any. */
-    protected fun applyHeaderColor() {
-        val color = HeaderColor.get(this) ?: return
-        actionBar?.setBackgroundDrawable(ColorDrawable(color))
     }
 
     /** Shows the back arrow in the action bar. */

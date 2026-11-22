@@ -10,7 +10,12 @@ import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.ListAdapter
 import android.widget.ListView
+import android.widget.TextView
 import android.widget.Toast
 import com.pbureera.ft_hangouts.R
 import com.pbureera.ft_hangouts.data.ContactDao
@@ -47,6 +52,10 @@ class MainActivity : BaseActivity() {
                 Intent(this, ContactDetailActivity::class.java)
                     .putExtra(EXTRA_CONTACT_ID, id)
             )
+        }
+
+        findViewById<View>(R.id.fab_add_contact).setOnClickListener {
+            startActivity(Intent(this, ContactEditActivity::class.java))
         }
 
         // SMS can arrive at any time, so ask for the SMS permissions as soon as the app starts
@@ -89,10 +98,6 @@ class MainActivity : BaseActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
-        R.id.action_add_contact -> {
-            startActivity(Intent(this, ContactEditActivity::class.java))
-            true
-        }
         R.id.action_header_color -> {
             showHeaderColorDialog()
             true
@@ -104,17 +109,27 @@ class MainActivity : BaseActivity() {
         else -> super.onOptionsItemSelected(item)
     }
 
-    /** A list of colours with the current one ticked; picking one applies and saves it. */
+    /** Each colour with a sample circle, the current one ticked; picking one applies and saves it. */
     private fun showHeaderColorDialog() {
         val colors = HeaderColor.choices(this)
         val current = colors.indexOf(HeaderColor.get(this) ?: colors[0])
+        val names = resources.getStringArray(R.array.header_color_names)
 
-        showChoiceDialog(
-            DIALOG_COLOR, R.string.action_header_color,
-            resources.getStringArray(R.array.header_color_names), current,
-        ) { which ->
-            HeaderColor.set(this, colors[which])
-            applyHeaderColor()
+        val adapter = object : ArrayAdapter<String>(this, R.layout.item_color_choice, names) {
+            override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+                val view = super.getView(position, convertView, parent) as TextView
+                val swatch = getDrawable(R.drawable.color_swatch)!!.mutate()
+                swatch.setTint(colors[position])
+                view.setCompoundDrawablesRelativeWithIntrinsicBounds(swatch, null, null, null)
+                return view
+            }
+        }
+
+        showChoiceDialog(DIALOG_COLOR, R.string.action_header_color, adapter, current) { which ->
+            if (colors[which] != HeaderColor.get(this)) {
+                HeaderColor.set(this, colors[which])
+                recreate() // rebuild the screen with the new theme colour
+            }
         }
     }
 
@@ -133,7 +148,8 @@ class MainActivity : BaseActivity() {
 
         showChoiceDialog(
             DIALOG_LANGUAGE, R.string.action_language,
-            names, languages.indexOf(AppLanguage.current(this)),
+            ArrayAdapter(this, R.layout.item_color_choice, names),
+            languages.indexOf(AppLanguage.current(this)),
         ) { which ->
             // Android recreates every open screen in the new language.
             if (languages[which] != AppLanguage.current(this)) AppLanguage.apply(this, languages[which])
@@ -144,7 +160,7 @@ class MainActivity : BaseActivity() {
     private fun showChoiceDialog(
         kind: String,
         titleRes: Int,
-        items: Array<String>,
+        items: ListAdapter,
         checked: Int,
         onPick: (Int) -> Unit,
     ) {

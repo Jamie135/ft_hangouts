@@ -5,6 +5,7 @@
 -->
 <resources>
     <string name="no_contacts">Aucun contact pour le moment</string>
+    <string name="no_contacts_hint">Touchez + pour ajouter votre premier contact</string>
 
     <!-- Screen titles -->
     <string name="title_new_contact">Nouveau contact</string>

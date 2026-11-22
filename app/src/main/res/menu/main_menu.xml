@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- "Add contact" is the round + button on the screen; these go in the ⋮ overflow menu. -->
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item
-        android:id="@+id/action_add_contact"
-        android:icon="@android:drawable/ic_menu_add"
-        android:title="@string/action_add_contact"
-        android:showAsAction="ifRoom" />
-
-    <!-- No icon and showAsAction="never": these go in the ⋮ overflow menu. -->
     <item
         android:id="@+id/action_header_color"
         android:title="@string/action_header_color"

@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary">#FF1E88E5</color>
-    <color name="primary_dark">#FF1565C0</color>
-    <color name="accent">#FF00ACC1</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Material surfaces (night versions in values-night/colors.xml). -->
+    <color name="background">#FFF4F5F8</color>
+    <color name="surface">#FFFFFFFF</color>
+    <color name="surface_variant">#FFE7E8EE</color>
     <!-- Launcher icon: white 42 logo on black. -->
     <color name="ic_launcher_background">#FF000000</color>
 
-    <!-- Conversation bubbles: sent = right, received = left. -->
-    <color name="bubble_sent">#FF1E88E5</color>
+    <!-- Conversation bubbles: sent = right (theme colour), received = left. -->
     <color name="bubble_sent_text">#FFFFFFFF</color>
     <color name="bubble_sent_time">#B3FFFFFF</color>
     <color name="bubble_received">#FFE8E8EC</color>

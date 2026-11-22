@@ -25,6 +25,19 @@ object HeaderColor {
             .apply()
     }
 
+    /** Theme overlays matching [choices], in the same order (see themes.xml). */
+    private val OVERLAYS = intArrayOf(
+        R.style.HeaderColor_Blue, R.style.HeaderColor_Red, R.style.HeaderColor_Green,
+        R.style.HeaderColor_Purple, R.style.HeaderColor_Orange, R.style.HeaderColor_Teal,
+        R.style.HeaderColor_Grey,
+    )
+
+    /** The theme overlay for the saved colour (blue if none was picked). */
+    fun overlay(context: Context): Int {
+        val index = choices(context).indexOf(get(context) ?: return OVERLAYS[0])
+        return OVERLAYS.getOrElse(index) { OVERLAYS[0] }
+    }
+
     /** All the colours offered in the menu, in the same order as R.array.header_color_names. */
     fun choices(context: Context): IntArray {
         val array = context.resources.obtainTypedArray(R.array.header_colors)

@@ -9,6 +9,9 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -34,6 +37,13 @@ class ContactDetailActivity : BaseActivity() {
         dao = ContactDao(this)
         rows = findViewById(R.id.detail_rows)
         contactId = intent.getLongExtra(EXTRA_CONTACT_ID, 0L)
+        setUpQuickAction(R.id.button_call, R.drawable.ic_call, R.string.action_call) { call() }
+        setUpQuickAction(R.id.button_message, R.drawable.ic_message, R.string.action_message) {
+            startActivity(
+                Intent(this, ConversationActivity::class.java)
+                    .putExtra(EXTRA_CONTACT_ID, contactId)
+            )
+        }
 
         if (!load()) return
         // Dialogs are destroyed on rotation: show it again if it was open.
@@ -57,23 +67,41 @@ class ContactDetailActivity : BaseActivity() {
         title = c.displayName
         Avatar.bind(findViewById(R.id.detail_avatar), c)
 
+        // Header: full name, and the company under it (unless the company is the name).
+        findViewById<TextView>(R.id.detail_name).text = c.displayName
+        val company = findViewById<TextView>(R.id.detail_company)
+        company.text = c.company
+        company.visibility =
+            if (c.company.isBlank() || c.company == c.displayName) View.GONE else View.VISIBLE
+
         rows.removeAllViews()
-        addRow(R.string.label_first_name, c.firstName)
-        addRow(R.string.label_last_name, c.lastName)
-        addRow(R.string.label_company, c.company)
-        addRow(R.string.label_phone, c.phone)
-        addRow(R.string.label_email, c.email)
-        addRow(R.string.label_address, c.address)
+        addRow(R.drawable.ic_person, R.string.label_first_name, c.firstName)
+        addRow(R.drawable.ic_person, R.string.label_last_name, c.lastName)
+        addRow(R.drawable.ic_business, R.string.label_company, c.company)
+        addRow(R.drawable.ic_call, R.string.label_phone, c.phone)
+        addRow(R.drawable.ic_email, R.string.label_email, c.email)
+        addRow(R.drawable.ic_place, R.string.label_address, c.address)
         return true
     }
 
-    /** Adds a "label / value" row, skipping fields the user left empty. */
-    private fun addRow(labelRes: Int, value: String) {
+    /** Adds an "icon / value / label" row to the card, skipping fields the user left empty. */
+    private fun addRow(iconRes: Int, labelRes: Int, value: String) {
         if (value.isBlank()) return
         val row = layoutInflater.inflate(R.layout.item_detail_row, rows, false)
+        row.findViewById<ImageView>(R.id.row_icon).setImageResource(iconRes)
         row.findViewById<TextView>(R.id.row_label).setText(labelRes)
         row.findViewById<TextView>(R.id.row_value).text = value
         rows.addView(row)
+    }
+
+    /** Fills one of the round buttons under the picture. */
+    private fun setUpQuickAction(id: Int, iconRes: Int, labelRes: Int, onClick: () -> Unit) {
+        val action = findViewById<View>(id)
+        val button = action.findViewById<ImageButton>(R.id.quick_action_icon)
+        button.setImageResource(iconRes)
+        button.contentDescription = getString(labelRes)
+        button.setOnClickListener { onClick() }
+        action.findViewById<TextView>(R.id.quick_action_label).setText(labelRes)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -82,17 +110,6 @@ class ContactDetailActivity : BaseActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
-        R.id.action_call -> {
-            call()
-            true
-        }
-        R.id.action_message -> {
-            startActivity(
-                Intent(this, ConversationActivity::class.java)
-                    .putExtra(EXTRA_CONTACT_ID, contactId)
-            )
-            true
-        }
         R.id.action_edit -> {
             startActivity(
                 Intent(this, ContactEditActivity::class.java)

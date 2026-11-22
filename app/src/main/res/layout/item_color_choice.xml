@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- One choice in the header colour dialog: colour circle, name, radio button. -->
+<CheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/text1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:checkMark="?android:attr/listChoiceIndicatorSingle"
+    android:drawablePadding="20dp"
+    android:gravity="center_vertical"
+    android:minHeight="52dp"
+    android:paddingHorizontal="24dp"
+    android:textAppearance="?android:attr/textAppearanceListItem" />

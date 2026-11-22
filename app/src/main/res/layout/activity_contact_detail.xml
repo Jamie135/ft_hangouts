@@ -6,8 +6,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingBottom="24dp">
 
+        <!-- Header: picture, name, company. -->
         <include
             android:id="@+id/detail_avatar"
             layout="@layout/view_avatar"
@@ -16,13 +18,53 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="24dp" />
 
-        <!-- One item_detail_row per non-empty field, added from code. -->
+        <TextView
+            android:id="@+id/detail_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:textAppearance="@android:style/TextAppearance.Material.Headline"
+            android:textIsSelectable="true" />
+
+        <TextView
+            android:id="@+id/detail_company"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:gravity="center"
+            android:textColor="?android:attr/textColorSecondary"
+            android:textIsSelectable="true"
+            android:textSize="16sp" />
+
+        <!-- Quick actions. -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <include
+                android:id="@+id/button_call"
+                layout="@layout/view_quick_action" />
+
+            <include
+                android:id="@+id/button_message"
+                layout="@layout/view_quick_action" />
+        </LinearLayout>
+
+        <!-- Card with one item_detail_row per non-empty field, added from code. -->
         <LinearLayout
             android:id="@+id/detail_rows"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/bg_card"
+            android:elevation="1dp"
             android:orientation="vertical"
-            android:paddingHorizontal="16dp"
-            android:paddingBottom="16dp" />
+            android:paddingVertical="8dp" />
     </LinearLayout>
 </ScrollView>

@@ -1,6 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Small coloured caption above a field or a value. -->
+    <!-- Edit form: one row = icon on the left, label + input on the right. -->
+    <style name="FieldRow">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <!-- Aligned with the input under the label. A plain View keeps the space when a
+         field shares the icon of the one above (last name). -->
+    <style name="FieldIcon">
+        <item name="android:layout_width">24dp</item>
+        <item name="android:layout_height">24dp</item>
+        <item name="android:layout_marginTop">42dp</item>
+        <item name="android:layout_marginEnd">16dp</item>
+        <item name="android:importantForAccessibility">no</item>
+        <item name="android:tint">?android:attr/textColorSecondary</item>
+    </style>
+
+    <style name="FieldColumn">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <!-- Small caption in the theme colour above a field. -->
     <style name="FieldLabel">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -13,5 +38,15 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:minHeight">48dp</item>
+    </style>
+
+    <!-- Main action (Save): pill filled with the theme colour, white text. -->
+    <style name="FilledButton" parent="android:Widget.Material.Button">
+        <item name="android:layout_height">48dp</item>
+        <item name="android:background">@drawable/bg_button_filled</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:elevation">2dp</item>
+        <item name="android:stateListAnimator">@null</item>
     </style>
 </resources>
