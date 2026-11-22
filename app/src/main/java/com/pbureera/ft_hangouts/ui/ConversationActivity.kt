@@ -1,7 +1,12 @@
 package com.pbureera.ft_hangouts.ui
 
 import android.Manifest
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.widget.EditText
 import android.widget.ImageButton
@@ -11,6 +16,8 @@ import com.pbureera.ft_hangouts.R
 import com.pbureera.ft_hangouts.data.ContactDao
 import com.pbureera.ft_hangouts.data.Message
 import com.pbureera.ft_hangouts.data.MessageDao
+import com.pbureera.ft_hangouts.sms.SmsPermissions
+import com.pbureera.ft_hangouts.sms.SmsReceiver
 import com.pbureera.ft_hangouts.sms.SmsSender
 
 /** SMS conversation with one contact: history on top, text field and Send at the bottom. */
@@ -22,6 +29,11 @@ class ConversationActivity : BaseActivity() {
     private lateinit var list: ListView
     private lateinit var input: EditText
     private var contactId = 0L
+
+    /** Reloads the list when SmsReceiver stored a new incoming message. */
+    private val messagesChanged = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) = loadMessages()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +58,19 @@ class ConversationActivity : BaseActivity() {
         val contact = contactDao.getById(contactId) ?: run { finish(); return }
         title = contact.displayName
         loadMessages()
+
+        // Only listen while visible; RECEIVER_NOT_EXPORTED: other apps cannot send us this.
+        val filter = IntentFilter(SmsReceiver.ACTION_MESSAGES_CHANGED)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            registerReceiver(messagesChanged, filter, Context.RECEIVER_NOT_EXPORTED)
+        } else {
+            registerReceiver(messagesChanged, filter)
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        unregisterReceiver(messagesChanged)
     }
 
     private fun loadMessages() {
@@ -57,7 +82,7 @@ class ConversationActivity : BaseActivity() {
         if (input.text.isBlank()) return
         // Since Android 6, "dangerous" permissions must also be granted at runtime.
         if (checkSelfPermission(Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(arrayOf(Manifest.permission.SEND_SMS), REQUEST_SEND_SMS)
+            requestPermissions(SmsPermissions.ALL, REQUEST_SEND_SMS)
             return // the message stays in the text field; we send it once the user answers
         }
         send(input.text.toString().trim())
@@ -71,7 +96,7 @@ class ConversationActivity : BaseActivity() {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode != REQUEST_SEND_SMS) return
-        if (grantResults.firstOrNull() == PackageManager.PERMISSION_GRANTED) {
+        if (SmsPermissions.isGranted(this, Manifest.permission.SEND_SMS)) {
             onSendClicked()
         } else {
             Toast.makeText(this, R.string.error_sms_permission, Toast.LENGTH_LONG).show()

@@ -55,6 +55,8 @@
     <string name="no_messages">Aucun message pour le moment</string>
     <string name="error_sms_permission">L\'autorisation d\'envoyer des SMS a été refusée</string>
     <string name="error_sms_failed">Le message n\'a pas pu être envoyé</string>
+    <string name="error_sms_receive_permission">Sans l\'autorisation SMS, les messages reçus ne peuvent pas être affichés</string>
+    <string name="new_message_from">Nouveau message de %1$s</string>
 
     <!-- Toast shown when the app comes back from the background -->
     <string name="last_background">Dernière mise en arrière-plan : %1$s</string>

@@ -1,13 +1,16 @@
 package com.pbureera.ft_hangouts.ui
 
+import android.Manifest
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ListView
+import android.widget.Toast
 import com.pbureera.ft_hangouts.R
 import com.pbureera.ft_hangouts.data.ContactDao
+import com.pbureera.ft_hangouts.sms.SmsPermissions
 
 /** Home screen: a summary row for every saved contact. */
 class MainActivity : BaseActivity() {
@@ -34,6 +37,12 @@ class MainActivity : BaseActivity() {
                 Intent(this, ContactDetailActivity::class.java)
                     .putExtra(EXTRA_CONTACT_ID, id)
             )
+        }
+
+        // SMS can arrive at any time, so ask for the SMS permissions as soon as the app starts
+        // (only on a fresh start, not after every rotation).
+        if (savedInstanceState == null && !SmsPermissions.allGranted(this)) {
+            requestPermissions(SmsPermissions.ALL, REQUEST_SMS_PERMISSIONS)
         }
 
         // Dialogs are destroyed on rotation: show the one that was open again.
@@ -132,6 +141,20 @@ class MainActivity : BaseActivity() {
             .show()
     }
 
+    @Deprecated("Framework callback; the replacement needs the AndroidX Activity Result API.")
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray,
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == REQUEST_SMS_PERMISSIONS &&
+            !SmsPermissions.isGranted(this, Manifest.permission.RECEIVE_SMS)
+        ) {
+            Toast.makeText(this, R.string.error_sms_receive_permission, Toast.LENGTH_LONG).show()
+        }
+    }
+
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         if (dialog?.isShowing == true) outState.putString(STATE_OPEN_DIALOG, dialogKind)
@@ -144,6 +167,7 @@ class MainActivity : BaseActivity() {
     }
 
     private companion object {
+        const val REQUEST_SMS_PERMISSIONS = 1
         const val STATE_OPEN_DIALOG = "open_dialog"
         const val DIALOG_COLOR = "color"
         const val DIALOG_LANGUAGE = "language"

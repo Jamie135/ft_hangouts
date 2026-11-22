@@ -52,6 +52,8 @@
     <string name="no_messages">No messages yet</string>
     <string name="error_sms_permission">Permission to send SMS was denied</string>
     <string name="error_sms_failed">The message could not be sent</string>
+    <string name="error_sms_receive_permission">Without the SMS permission, incoming messages cannot be received</string>
+    <string name="new_message_from">New message from %1$s</string>
 
     <!-- Toast shown when the app comes back from the background -->
     <string name="last_background">App last sent to background: %1$s</string>
