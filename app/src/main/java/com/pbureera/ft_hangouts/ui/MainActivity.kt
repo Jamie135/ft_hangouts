@@ -111,10 +111,10 @@ class MainActivity : BaseActivity() {
 
         showChoiceDialog(
             DIALOG_LANGUAGE, R.string.action_language,
-            names, languages.indexOf(AppLanguage.current()),
+            names, languages.indexOf(AppLanguage.current(this)),
         ) { which ->
             // Android recreates every open screen in the new language.
-            if (languages[which] != AppLanguage.current()) AppLanguage.apply(languages[which])
+            if (languages[which] != AppLanguage.current(this)) AppLanguage.apply(this, languages[which])
         }
     }
 

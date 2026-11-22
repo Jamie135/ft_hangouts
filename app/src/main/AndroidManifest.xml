@@ -47,18 +47,6 @@
         <!-- Told by Android whether each SMS we sent was accepted by the network. -->
         <receiver android:name=".sms.SmsSentReceiver" android:exported="false" />
 
-        <!--
-          Lets AppCompat remember the language chosen in the app's Language menu on
-          Android 12 and older (Android 13+ stores it in the system by itself).
-        -->
-        <service
-            android:name="androidx.appcompat.app.AppLocalesMetadataHolderService"
-            android:enabled="false"
-            android:exported="false">
-            <meta-data
-                android:name="autoStoreLocales"
-                android:value="true" />
-        </service>
     </application>
 
 </manifest>

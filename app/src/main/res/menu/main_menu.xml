@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
         android:id="@+id/action_add_contact"
         android:icon="@android:drawable/ic_menu_add"
         android:title="@string/action_add_contact"
-        app:showAsAction="ifRoom" />
+        android:showAsAction="ifRoom" />
 
     <!-- No icon and showAsAction="never": these go in the ⋮ overflow menu. -->
     <item
         android:id="@+id/action_header_color"
         android:title="@string/action_header_color"
-        app:showAsAction="never" />
+        android:showAsAction="never" />
 
     <item
         android:id="@+id/action_language"
         android:title="@string/action_language"
-        app:showAsAction="never" />
+        android:showAsAction="never" />
 </menu>

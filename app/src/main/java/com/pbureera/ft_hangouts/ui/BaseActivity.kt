@@ -1,18 +1,23 @@
 package com.pbureera.ft_hangouts.ui
 
+import android.app.Activity
+import android.content.Context
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.WindowInsets
-import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AppCompatActivity
 
 /**
  * Parent of every screen. Shared behaviour (header colour, "last paused" toast)
  * will live here so each activity gets it for free.
  */
-abstract class BaseActivity : AppCompatActivity() {
+abstract class BaseActivity : Activity() {
+
+    /** Before Android 13, the language picked in the app's menu is applied here (see [AppLanguage]). */
+    override fun attachBaseContext(newBase: Context) {
+        super.attachBaseContext(AppLanguage.wrap(newBase))
+    }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)
@@ -27,10 +32,11 @@ abstract class BaseActivity : AppCompatActivity() {
      * bottom. Pad the content so it sits below the action bar and above the navigation
      * bar / keyboard.
      */
-    @RequiresApi(Build.VERSION_CODES.VANILLA_ICE_CREAM)
     private fun keepContentBetweenSystemBars() {
         val content = findViewById<View>(android.R.id.content)
-        val actionBar = findViewById<View>(androidx.appcompat.R.id.action_bar_container)
+        val actionBar = findViewById<View>(
+            resources.getIdentifier("action_bar_container", "id", "android")
+        )
         var bars = android.graphics.Insets.NONE
 
         fun applyPadding() {
@@ -63,16 +69,16 @@ abstract class BaseActivity : AppCompatActivity() {
     /** Paints the action bar with the colour chosen in the "Header colour" menu, if any. */
     protected fun applyHeaderColor() {
         val color = HeaderColor.get(this) ?: return
-        supportActionBar?.setBackgroundDrawable(ColorDrawable(color))
+        actionBar?.setBackgroundDrawable(ColorDrawable(color))
     }
 
     /** Shows the back arrow in the action bar. */
     protected fun enableUpButton() {
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        actionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     /** Back arrow in the action bar: close this screen. */
-    override fun onSupportNavigateUp(): Boolean {
+    override fun onNavigateUp(): Boolean {
         finish()
         return true
     }
