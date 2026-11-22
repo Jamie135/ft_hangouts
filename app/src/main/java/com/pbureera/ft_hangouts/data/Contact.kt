@@ -15,12 +15,16 @@ data class Contact(
     /** File name of the contact's picture in the app's private storage (see PhotoStore), or null. */
     val photoFile: String? = null,
 ) {
-    /** "First Last" for a person, or the company name for an organisation. */
+    /**
+     * "First Last" for a person, the company name for an organisation, or the phone number
+     * for a contact created automatically from an unknown sender (no name yet).
+     */
     val displayName: String
         get() = listOf(firstName, lastName).filter { it.isNotBlank() }.joinToString(" ")
             .ifEmpty { company }
+            .ifEmpty { phone }
 
-    /** "BS" for Bob Smith; the first letter of the company for an organisation. */
+    /** "BS" for Bob Smith; the first letter of the company for an organisation; "#" without a name. */
     val initials: String
         get() = initialsOf(firstName, lastName, company)
 
@@ -30,5 +34,6 @@ data class Contact(
                 .mapNotNull { it.trim().firstOrNull()?.uppercaseChar() }
                 .joinToString("")
                 .ifEmpty { company.trim().take(1).uppercase() }
+                .ifEmpty { "#" }
     }
 }

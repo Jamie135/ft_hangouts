@@ -2,7 +2,11 @@ package com.pbureera.ft_hangouts.ui
 
 import android.Manifest
 import android.app.AlertDialog
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
+import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -11,6 +15,7 @@ import android.widget.Toast
 import com.pbureera.ft_hangouts.R
 import com.pbureera.ft_hangouts.data.ContactDao
 import com.pbureera.ft_hangouts.sms.SmsPermissions
+import com.pbureera.ft_hangouts.sms.SmsReceiver
 
 /** Home screen: a summary row for every saved contact. */
 class MainActivity : BaseActivity() {
@@ -21,6 +26,11 @@ class MainActivity : BaseActivity() {
     /** The settings dialog currently shown (header colour or language), if any. */
     private var dialog: AlertDialog? = null
     private var dialogKind: String? = null
+
+    /** An SMS from an unknown number adds a contact: show it straight away. */
+    private val messagesChanged = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) = adapter.submit(dao.getAll())
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,6 +69,18 @@ class MainActivity : BaseActivity() {
     override fun onResume() {
         super.onResume()
         adapter.submit(dao.getAll())
+        // Only listen while visible; RECEIVER_NOT_EXPORTED: other apps cannot send us this.
+        val filter = IntentFilter(SmsReceiver.ACTION_MESSAGES_CHANGED)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            registerReceiver(messagesChanged, filter, Context.RECEIVER_NOT_EXPORTED)
+        } else {
+            registerReceiver(messagesChanged, filter)
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        unregisterReceiver(messagesChanged)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

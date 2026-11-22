@@ -36,8 +36,9 @@ class ContactDao(private val db: DbHelper) {
     fun getAll(): List<Contact> =
         db.readableDatabase.query(
             T_CONTACTS, null, null, null, null, null,
-            // Sort by the name shown in the list: the first name, or the company when there is none.
-            "COALESCE(NULLIF($C_FIRST_NAME, ''), $C_COMPANY) COLLATE NOCASE, $C_LAST_NAME COLLATE NOCASE"
+            // Sort by the name shown in the list: the first name, else the company, else the number.
+            "COALESCE(NULLIF($C_FIRST_NAME, ''), NULLIF($C_COMPANY, ''), $C_PHONE) COLLATE NOCASE, " +
+                "$C_LAST_NAME COLLATE NOCASE"
         ).use { c -> buildList { while (c.moveToNext()) add(c.toContact()) } }
 
     fun getById(id: Long): Contact? =
