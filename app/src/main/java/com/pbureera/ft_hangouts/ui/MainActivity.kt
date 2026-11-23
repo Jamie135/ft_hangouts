@@ -167,9 +167,7 @@ class MainActivity : BaseActivity() {
     ) {
         dialogKind = kind
         // Same icon as in the header, in the theme colour.
-        val attrs = obtainStyledAttributes(intArrayOf(android.R.attr.colorPrimary))
-        val icon = getDrawable(iconRes)!!.mutate().apply { setTint(attrs.getColor(0, 0)) }
-        attrs.recycle()
+        val icon = getDrawable(iconRes)!!.mutate().apply { setTint(themeColor(android.R.attr.colorPrimary)) }
         dialog = AlertDialog.Builder(this)
             .setTitle(titleRes)
             .setIcon(icon)

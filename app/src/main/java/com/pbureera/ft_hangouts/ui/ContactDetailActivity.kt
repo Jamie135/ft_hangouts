@@ -101,16 +101,12 @@ class ContactDetailActivity : BaseActivity() {
      * Built here because a drawable XML cannot make a theme colour translucent.
      */
     private fun tintHeader() {
-        val attrs = obtainStyledAttributes(intArrayOf(android.R.attr.colorPrimary))
-        val primary = attrs.getColor(0, 0)
-        attrs.recycle()
+        val primary = themeColor(android.R.attr.colorPrimary)
         findViewById<View>(R.id.detail_header).background = GradientDrawable(
             GradientDrawable.Orientation.TOP_BOTTOM,
             intArrayOf(withAlpha(primary, 0x38), withAlpha(primary, 0)),
         )
     }
-
-    private fun withAlpha(color: Int, alpha: Int) = (color and 0x00FFFFFF) or (alpha shl 24)
 
     /** Fills one of the round buttons under the picture. */
     private fun setUpQuickAction(id: Int, iconRes: Int, labelRes: Int, onClick: () -> Unit) {
