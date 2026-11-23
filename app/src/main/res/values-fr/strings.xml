@@ -55,6 +55,8 @@
     <string name="error_no_phone_app">Aucune application ne peut passer d\'appel sur cet appareil</string>
     <string name="action_send">Envoyer</string>
     <string name="hint_message">Écrire un message</string>
+    <string name="day_today">Aujourd\'hui</string>
+    <string name="day_yesterday">Hier</string>
     <string name="no_messages">Aucun message pour le moment</string>
     <string name="error_sms_permission">L\'autorisation d\'envoyer des SMS a été refusée</string>
     <string name="error_sms_failed">Le message n\'a pas pu être envoyé</string>

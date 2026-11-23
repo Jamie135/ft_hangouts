@@ -8,6 +8,8 @@ import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ListView
@@ -49,7 +51,21 @@ class ConversationActivity : BaseActivity() {
         list.adapter = adapter
         list.emptyView = findViewById(R.id.empty_messages)
         input = findViewById(R.id.message_input)
-        findViewById<ImageButton>(R.id.button_send).setOnClickListener { onSendClicked() }
+        val sendButton = findViewById<ImageButton>(R.id.button_send)
+        sendButton.setOnClickListener { onSendClicked() }
+
+        // The send button is dimmed and inactive while there is nothing to send.
+        fun refreshSendButton() {
+            val canSend = input.text.isNotBlank()
+            sendButton.isEnabled = canSend
+            sendButton.animate().alpha(if (canSend) 1f else 0.4f).setDuration(150).start()
+        }
+        input.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: Editable?) = refreshSendButton()
+        })
+        refreshSendButton() // text restored after a rotation
     }
 
     /** Reload on every return: the contact may have been renamed, and messages may have arrived. */

@@ -52,6 +52,8 @@
     <string name="error_no_phone_app">No app can make phone calls on this device</string>
     <string name="action_send">Send</string>
     <string name="hint_message">Type a message</string>
+    <string name="day_today">Today</string>
+    <string name="day_yesterday">Yesterday</string>
     <string name="no_messages">No messages yet</string>
     <string name="error_sms_permission">Permission to send SMS was denied</string>
     <string name="error_sms_failed">The message could not be sent</string>

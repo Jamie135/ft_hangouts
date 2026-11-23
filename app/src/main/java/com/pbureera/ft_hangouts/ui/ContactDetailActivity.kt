@@ -5,6 +5,7 @@ import android.app.AlertDialog
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.drawable.GradientDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
@@ -37,6 +38,7 @@ class ContactDetailActivity : BaseActivity() {
         dao = ContactDao(this)
         rows = findViewById(R.id.detail_rows)
         contactId = intent.getLongExtra(EXTRA_CONTACT_ID, 0L)
+        tintHeader()
         setUpQuickAction(R.id.button_call, R.drawable.ic_call, R.string.action_call) { call() }
         setUpQuickAction(R.id.button_message, R.drawable.ic_message, R.string.action_message) {
             startActivity(
@@ -93,6 +95,22 @@ class ContactDetailActivity : BaseActivity() {
         row.findViewById<TextView>(R.id.row_value).text = value
         rows.addView(row)
     }
+
+    /**
+     * Behind the header, a light wash of the theme colour that fades into the background.
+     * Built here because a drawable XML cannot make a theme colour translucent.
+     */
+    private fun tintHeader() {
+        val attrs = obtainStyledAttributes(intArrayOf(android.R.attr.colorPrimary))
+        val primary = attrs.getColor(0, 0)
+        attrs.recycle()
+        findViewById<View>(R.id.detail_header).background = GradientDrawable(
+            GradientDrawable.Orientation.TOP_BOTTOM,
+            intArrayOf(withAlpha(primary, 0x38), withAlpha(primary, 0)),
+        )
+    }
+
+    private fun withAlpha(color: Int, alpha: Int) = (color and 0x00FFFFFF) or (alpha shl 24)
 
     /** Fills one of the round buttons under the picture. */
     private fun setUpQuickAction(id: Int, iconRes: Int, labelRes: Int, onClick: () -> Unit) {

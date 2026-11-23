@@ -9,50 +9,61 @@
         android:orientation="vertical"
         android:paddingBottom="24dp">
 
-        <!-- Header: picture, name, company. -->
-        <include
-            android:id="@+id/detail_avatar"
-            layout="@layout/view_avatar"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="24dp" />
-
-        <TextView
-            android:id="@+id/detail_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="16dp"
-            android:gravity="center"
-            android:textAppearance="@android:style/TextAppearance.Material.Headline"
-            android:textIsSelectable="true" />
-
-        <TextView
-            android:id="@+id/detail_company"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:gravity="center"
-            android:textColor="?android:attr/textColorSecondary"
-            android:textIsSelectable="true"
-            android:textSize="16sp" />
-
-        <!-- Quick actions. -->
+        <!-- Header: picture, name, company and quick actions, on a soft gradient of the
+             theme colour (set from code, see ContactDetailActivity.tintHeader). -->
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:id="@+id/detail_header"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:paddingTop="32dp"
+            android:paddingBottom="8dp">
 
             <include
-                android:id="@+id/button_call"
-                layout="@layout/view_quick_action" />
+                android:id="@+id/detail_avatar"
+                layout="@layout/view_avatar"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center_horizontal" />
 
-            <include
-                android:id="@+id/button_message"
-                layout="@layout/view_quick_action" />
+            <TextView
+                android:id="@+id/detail_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center"
+                android:textAppearance="@android:style/TextAppearance.Material.Headline"
+                android:textIsSelectable="true" />
+
+            <TextView
+                android:id="@+id/detail_company"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="2dp"
+                android:gravity="center"
+                android:textColor="?android:attr/textColorSecondary"
+                android:textIsSelectable="true"
+                android:textSize="16sp" />
+
+            <!-- Quick actions. -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <include
+                    android:id="@+id/button_call"
+                    layout="@layout/view_quick_action" />
+
+                <include
+                    android:id="@+id/button_message"
+                    layout="@layout/view_quick_action" />
+            </LinearLayout>
         </LinearLayout>
 
         <!-- Card with one item_detail_row per non-empty field, added from code. -->
@@ -61,10 +72,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="16dp"
             android:background="@drawable/bg_card"
+            android:divider="@drawable/divider_inset"
             android:elevation="1dp"
             android:orientation="vertical"
-            android:paddingVertical="8dp" />
+            android:paddingVertical="4dp"
+            android:showDividers="middle" />
     </LinearLayout>
 </ScrollView>

@@ -6,6 +6,7 @@
     <color name="background">#FFF4F5F8</color>
     <color name="surface">#FFFFFFFF</color>
     <color name="surface_variant">#FFE7E8EE</color>
+    <color name="outline">#FFD3D5DD</color>
     <!-- Launcher icon: white 42 logo on black. -->
     <color name="ic_launcher_background">#FF000000</color>
 

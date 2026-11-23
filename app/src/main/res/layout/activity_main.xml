@@ -10,7 +10,10 @@
         android:layout_height="match_parent"
         android:clipToPadding="false"
         android:divider="@null"
-        android:paddingBottom="88dp" />
+        android:listSelector="@android:color/transparent"
+        android:paddingTop="4dp"
+        android:paddingBottom="88dp"
+        android:scrollbarStyle="outsideOverlay" />
 
     <!-- Shown automatically by ListView.setEmptyView() when there are no contacts. -->
     <LinearLayout
@@ -23,17 +26,18 @@
         android:padding="32dp">
 
         <ImageView
-            android:layout_width="96dp"
-            android:layout_height="96dp"
-            android:alpha="0.3"
+            android:layout_width="112dp"
+            android:layout_height="112dp"
+            android:background="@drawable/bg_tonal_circle"
             android:importantForAccessibility="no"
+            android:padding="28dp"
             android:src="@drawable/ic_person"
             android:tint="?android:attr/colorPrimary" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="24dp"
             android:text="@string/no_contacts"
             android:textAppearance="@android:style/TextAppearance.Material.Title" />
 

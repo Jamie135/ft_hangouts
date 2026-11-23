@@ -125,7 +125,7 @@ class MainActivity : BaseActivity() {
             }
         }
 
-        showChoiceDialog(DIALOG_COLOR, R.string.action_header_color, adapter, current) { which ->
+        showChoiceDialog(DIALOG_COLOR, R.string.action_header_color, R.drawable.ic_palette, adapter, current) { which ->
             if (colors[which] != HeaderColor.get(this)) {
                 HeaderColor.set(this, colors[which])
                 recreate() // rebuild the screen with the new theme colour
@@ -147,7 +147,7 @@ class MainActivity : BaseActivity() {
         }.toTypedArray()
 
         showChoiceDialog(
-            DIALOG_LANGUAGE, R.string.action_language,
+            DIALOG_LANGUAGE, R.string.action_language, R.drawable.ic_language,
             ArrayAdapter(this, R.layout.item_color_choice, names),
             languages.indexOf(AppLanguage.current(this)),
         ) { which ->
@@ -160,13 +160,19 @@ class MainActivity : BaseActivity() {
     private fun showChoiceDialog(
         kind: String,
         titleRes: Int,
+        iconRes: Int,
         items: ListAdapter,
         checked: Int,
         onPick: (Int) -> Unit,
     ) {
         dialogKind = kind
+        // Same icon as in the header, in the theme colour.
+        val attrs = obtainStyledAttributes(intArrayOf(android.R.attr.colorPrimary))
+        val icon = getDrawable(iconRes)!!.mutate().apply { setTint(attrs.getColor(0, 0)) }
+        attrs.recycle()
         dialog = AlertDialog.Builder(this)
             .setTitle(titleRes)
+            .setIcon(icon)
             .setSingleChoiceItems(items, checked) { d, which ->
                 d.dismiss()
                 onPick(which)
